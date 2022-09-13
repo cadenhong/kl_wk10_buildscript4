@@ -17,11 +17,16 @@
 #
 ##################################################################################
 
-import os
+import subprocess
 import requests
 
-# os.system("pip3 install requests")
+#subprocess.call(['./setup.sh'])
 
-# api_url = "https://jsonplaceholder.typicode.com/todos/1"
-# response = requests.get(api_url)
-# response.json()
+user = input("Enter a Github account to check: ")
+api_url = f'https://api.github.com/users/{user}/repos'
+response = requests.get(api_url)
+print(response.json())
+
+# sections = ['arts', 'automobiles', 'books', 'business', 'fashion', 'food', 'health', 'home', 'insider', 'magazine', 'movies', 'nyregion', 'obituaries', 'opinion', 'politics', 'realestate', 'science', 'sports', 'sundayreview', 'technology', 'theater', 't-magazine', 'travel', 'upshot', 'us', 'world']
+# for section in sections:
+#     print(f'{section}', end='|')
