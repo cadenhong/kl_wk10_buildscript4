@@ -1,6 +1,6 @@
 import subprocess
 
-mod = "requests"
+test_variable = "hello world"
 
 modules = subprocess.run(['pip3', 'freeze'], capture_output=True).stdout.decode('utf-8')
 
