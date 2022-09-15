@@ -1,21 +1,53 @@
-#################################################################################
+############################################################################################
 #
 # Name: Caden Hong
 #
 # Date: September 15, 2022
 #
-# Description: This script :
-#	- 
-#	- 
-#	- 
-#	- 
+# Description: Send a GET request to GitHub's API, retrieve and organize data into a CSV:
+#	- try:
+#       - Import the following packages: subprocess, json, csv, time, getpass, requests
+#	- except (import error):
+#       - Run the setup.sh script to install requests package
+#       - Import the following packages: subprocess, json, csv, time, getpass, requests
+#	- finally:
+#       - Prompt user to enter a GitHub account to look up, store in username variable
+#       - Prompt user to enter their GitHub token to use for API call, store in token variable
+#       - Set repo_api_url using the entered username
+#       - try:
+#           - Send a GET request using repo_api_url, username, and token, store in response
+#           - Raise error if one occurs
+#       - except (HTTP error):
+#           - Inform that there was an invalid HTTP response
+#       - except (connection error):
+#           - Inform that there was a network problem
+#       - except (redirect error):
+#           - Inform that user exceeded redirection limits
+#       - except (other errors):
+#           - Inform user of the error's status code
+#       - else (to run if no exception is raised):
+#           - Print the status code to confirm successful GET request
+#           - Store the GET response as a JSON in response_json variable
+#           - Store content of response_json in a username_repos.json file
+#           - Store the specific key value to extract in a list called headers
+#           - Open the JSON file and store in user_repos variable
+#           - Create an empty list called csv_rows
+#           - For each repo in user_repos:
+#               - Create an empty list called csv_row
+#               - For each header in headers:
+#                   - Append the corresponding info found in repo to csv_row
+#               - Append contents of csv_row into csv_rows
+#           - Use csv.writer() method to store the headers and csv_rows in username_repos.csv
+#       - finally:
+#           - Close the Request object (response variable)
 #
 # Potential Issues:
-#	- Without Github token provided, there is a limitation on how many calls you can make to the API per hour
-#	- 
-#	- 
+#	- Without GitHub token provided, there is a limit on how many requests one can make
+#	- If GitHub token is entered, it will be saved as a variable - potential security issue?
+#	- Script is quite long, could potentially utilize modules and functions to shorten
 #
-##################################################################################
+############################################################################################
+
 try:
     import subprocess, json, csv, time, getpass, requests
 except ImportError:
