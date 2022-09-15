@@ -3,10 +3,11 @@
 package=$(pip3 list | grep "requests")
 
 if [ -z "$package" ] ; then
-  echo "Package does not exist"
+  echo $package "does not exist, installing now..."
   sudo apt update
   sudo apt upgrade -y
   pip3 install requests
+  echo "Installation completed"
 else
-  echo $package "EXISTS"
+  echo $package "exists"
 fi
