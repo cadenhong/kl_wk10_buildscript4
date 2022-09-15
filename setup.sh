@@ -13,7 +13,7 @@
 #       - sudo apt upgrade -y
 #       - pip3 install requests
 #   - Else:
-#	      - Notify user that package exists
+#       - Notify user that package exists
 #
 # Potential Issues:
 #	- User may not have pip3 installed, they may still run pip
