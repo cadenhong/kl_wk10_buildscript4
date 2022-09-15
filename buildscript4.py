@@ -17,131 +17,79 @@
 #
 ##################################################################################
 
-import subprocess
-import requests
-import json
-import csv
+import subprocess, requests, json, csv, time, getpass
 
-#subprocess.call(['./setup.sh'])
+print("============================================================================================")
+print("KURA LABS - BUILD SCRIPT 4".center(92))
+print("============================================================================================")
+time.sleep(1)
+print("Send a GET request to the GitHub API to retrieve a complete list of a user's public repos, ")
+print("store it in user_repos.json, then extract specific data to store in user_repos.csv.")
+time.sleep(3)
+print()
+print("Checking environment for necessary package to run this script...")
+time.sleep(2)
+subprocess.call(['./setup.sh'])
+time.sleep(1)
+print()
+print("To proceed, provide a valid GitHub username and your GitHub token to access the API.")
+print()
+print("You may run this script without a token (leave blank), but it will limit the number ")
+print("of requests that can be sent per hour.")
+print("--------------------------------------------------------------------------------------------")
+time.sleep(4)
+username = input("Enter a GitHub account: ")
+token = getpass.getpass("Enter your GitHub token (press enter to skip): ")
+repo_api_url = f'https://api.github.com/users/{username}/repos'
 
-#user = input("Enter a Github account: ")
-#api_url = f'https://api.github.com/users/{user}/repos'
+try:
+    response = requests.get(repo_api_url, auth=(username,token))
+    time.sleep(1)
+    response.raise_for_status()
+    print()
+except requests.exceptions.HTTPError as http_err:
+    print(f'ERROR! Invalid HTTP Response:\n{http_err}')
+except requests.exceptions.ConnectionError as network_err:
+    print(f'ERROR! Network Problem:\n{network_err}')
+except requests.exceptions.TooManyRedirects as limit_err:
+    print(f'ERROR! Exceeding Redirection Limit:\n{limit_err}')
+except requests.exceptions.RequestException as other_err:
+    print(f'ERROR!\n{requests.status_codes}')
+else:
+    print(f'GET request successful, response code: {response.status_code}')
+    time.sleep(1)
+    print(f'\nGenerating {username}_repos.json...')
+    time.sleep(2)
 
-# username = 'cadenhong'
+    response_json = response.json()
+    with open(f'{username}_repos.json', 'w') as repo:
+        json.dump(response_json, repo, indent=2)
 
-# repo_api_url = f'https://api.github.com/users/cadenhong/repos'
-# repo_response = requests.get(repo_api_url, auth=(username,token)).json()
+    headers = ['name', 'description', 'language', 'created_at', 'updated_at', 'html_url']
+    
+    with open(f'{username}_repos.json', 'r') as repo:
+        user_repos = json.load(repo)
 
-# print(user_response['name'])
-# print(repo_response[0]['name'])
-# print(repo_response[0]['html_url'])
-# print(repo_response[0]['description'])
-# print(repo_response[0]['created_at'])
-# print(repo_response[0]['updated_at'])
-# print(repo_response[0]['language'])
+    csv_rows = []
+    for repo in user_repos:
+        csv_row = []
+        for header in headers:
+            csv_row.append(repo[header])
+        csv_rows.append(csv_row)
 
-# with open('user.json', 'w') as user:
-#     json.dump(user_response, user, indent=2)
+    print(f'Generating {username}_repos.csv...')
+    time.sleep(2)
 
-# with open('repo.json', 'w') as repo:
-#     json.dump(repo_response, repo, indent=2)
-
-
-# ------------------------ working with json files -------------------------------
-
-headers = ['name', 'description', 'language', 'html_url', 'created_at', 'updated_at']
-
-with open('repo.json', 'r') as repo:
-    r = json.load(repo)
-
-dct = {}
-lst = []
-
-n = [ {'name': 'a', 'description': 'a', 'language': '', 'html_url': '', 'created_at': '', 'updated_at': ''},\
-      {'name': 'b', 'description': 'b', 'language': '', 'html_url': '', 'created_at': '', 'updated_at': ''},\
-      {'name': 'c', 'description': 'c', 'language': '', 'html_url': '', 'created_at': '', 'updated_at': ''},\
-      {'name': 'd', 'description': 'd', 'language': '', 'html_url': '', 'created_at': '', 'updated_at': ''} ]
-
-print(n[0]['name']) # a
-
-# list of field values (i.e [name, desc, date, etc, etc, etc])
-# dict(zip(header,list)) to create a dictionary, then append it to a list
-# repeat for all the repos (12 total)
-
-b = []
-for repo in r:
-    a = []
-    for header in headers:
-#        print(repo[header])
-        #a = []
-        a.append(repo[header])
-    b.append(a)
-print(b)
-#    dictionary = dict(zip(headers,a))
-
-
-# print(len(dictionary))
-
-# # prints by header info 
-# for header in headers:
-#     for repository in r:
-#         print(repository[header])
-
-# for num in range(len(r)):
-#     for header in headers:
-#         dct[header] = r[num][header]
-# print(len(r))
-
-# with open('testing.txt', 'w') as t:
-#     # prints all header by repo
-#     for repos in r:
-#         for h in headers:
-#             t.write(repos[h])
-        
-
-# for num in range(len(r)):
-#     for header in headers:
-#         lst.append({header})
-#         #dct[header] = r[num][header]
-# print(len(lst))   
-# #    print(dct)
-# #print(len(dct))
-
-# for num in range(len(r)):
-#     for header in headers:
-#         lst.append({header:r[num][header]})
-#         # dct[header] = r[header]
-#         # lst.append(dct)
-
-# print(lst[0])
-
-# print(len(lst))
-
-# for num in range(len(r)):
-#     for header in headers:
-#         index = 0
-#         info[header].append(r[num][header])
-#         index += 1
-
-# for num in range(len(r)):
-#     for header in headers:
-#         lst.append({header:r[header]})
-#         print(lst)
-
-# with open('{}.csv'.format(r[0]['owner']['login']), 'w') as f:
-#     writer = csv.DictWriter(f, fieldnames=headers)
-#     writer.writeheader()
-#     writer.writerows(info)
-
-# new_json = []
-
-# for i in range(len(r)):
-#     for field in fields:
-#         dict_pair = {}
-#         dict_pair[field] = r[i][field]
-#         new_json[i].append(dict_pair)
-#         print(new_json)
-#        new_json[i] = field
- #       new_json[field].append(r[i][field])
-
-#print(new_json)
+    with open(f'{username}_repos.csv', 'w') as csvfile:
+        csvwriter = csv.writer(csvfile)
+        csvwriter.writerow(headers)
+        csvwriter.writerows(csv_rows)
+    
+    print("\nBoth files have been generated")
+    time.sleep(1)
+finally:
+    print("--------------------------------------------------------------------------------------------")
+    print("Closing API connection...")
+    time.sleep(1)
+    response.close()
+    print("============================================================================================")
