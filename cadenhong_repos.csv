@@ -1,0 +1,14 @@
+name,description,language,created_at,updated_at,html_url
+bash-scripting-exercise,BASH Scripting Exercise - Daily Challenge for 30 Days,Shell,2022-09-14T17:23:18Z,2022-09-14T17:27:08Z,https://github.com/cadenhong/bash-scripting-exercise
+jenkins-test,,,2022-08-12T00:44:13Z,2022-09-01T00:55:27Z,https://github.com/cadenhong/jenkins-test
+kl-e2e-flask-urlshortener,End to End testing for Flask application (url-shortener),JavaScript,2022-09-08T23:02:55Z,2022-09-09T21:55:49Z,https://github.com/cadenhong/kl-e2e-flask-urlshortener
+kl-wk7-group,KL Week 7 - Group Project,Shell,2022-08-16T22:31:42Z,2022-08-22T20:21:44Z,https://github.com/cadenhong/kl-wk7-group
+kl-wk8-activity,A Date To Remember - Using Python to Simulate a Date,Python,2022-08-24T14:18:53Z,2022-08-24T14:28:42Z,https://github.com/cadenhong/kl-wk8-activity
+kl_buildscript1,This script will automatically update the server using crontab,Shell,2022-08-22T19:49:31Z,2022-08-22T20:15:05Z,https://github.com/cadenhong/kl_buildscript1
+kl_buildscript2,This script will automatically check the server's processes and ask user to terminate a process if memory > 350 MB,Shell,2022-08-22T20:11:14Z,2022-08-22T20:14:15Z,https://github.com/cadenhong/kl_buildscript2
+kl_buildscript3,"Create a user in GitAcc group, then automatically add, commit, push changes while checking for sensitive information.",Shell,2022-08-22T20:16:29Z,2022-08-22T20:19:43Z,https://github.com/cadenhong/kl_buildscript3
+kl_buildscript4,Connect to an API and organize retrieved data into a CSV file,Python,2022-09-12T16:54:35Z,2022-09-12T16:55:47Z,https://github.com/cadenhong/kl_buildscript4
+kl_deployment1,CI/CD pipeline deployment 1,HTML,2022-08-27T17:23:32Z,2022-08-28T18:55:33Z,https://github.com/cadenhong/kl_deployment1
+kl_diagnostic5_q3,Export CPU and MEM usage and save the file every minute using crontab - timestamp included in the exported file.,Shell,2022-08-20T17:00:42Z,2022-08-22T20:23:12Z,https://github.com/cadenhong/kl_diagnostic5_q3
+test_repo,This will be for testing,,2022-08-10T00:18:52Z,2022-08-10T00:25:11Z,https://github.com/cadenhong/test_repo
+test_repo-1,This will be for testing ,,2022-08-10T00:57:47Z,2022-08-10T00:24:40Z,https://github.com/cadenhong/test_repo-1
